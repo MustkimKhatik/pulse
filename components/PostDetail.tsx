@@ -1,6 +1,7 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
+import { AppHeader } from "@/components/AppHeader";
 import { DigestMarkdown } from "@/components/DigestMarkdown";
 import { BlogMarkdown } from "@/components/BlogMarkdown";
 import type { Post } from "@/lib/types";
@@ -15,15 +16,7 @@ export function PostDetail({ post, onBack }: PostDetailProps) {
 
   return (
     <div className="min-h-screen bg-page">
-      <header className="sticky top-0 z-10 bg-navbar border-b border-theme px-4 py-3">
-        <button
-          type="button"
-          onClick={onBack}
-          className="text-secondary text-sm hover:text-primary transition-colors"
-        >
-          ← Back
-        </button>
-      </header>
+      <AppHeader onBack={onBack} />
 
       <article className="px-4 py-4 max-w-lg mx-auto pb-10">
         <div className="flex items-center gap-2 mb-3">

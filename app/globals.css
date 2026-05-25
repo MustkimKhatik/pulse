@@ -77,10 +77,10 @@
     background-color: var(--card-hover);
   }
   .text-primary {
-    color: var(--text-primary);
+    color: var(--text-primary) !important;
   }
   .text-secondary {
-    color: var(--text-secondary);
+    color: var(--text-secondary) !important;
   }
   .text-link {
     color: var(--link);

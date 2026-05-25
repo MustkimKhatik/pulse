@@ -32,10 +32,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <head>
-        <ThemeScript />
-      </head>
       <body className={`${inter.className} min-h-screen antialiased`}>
+        <ThemeScript />
         {children}
       </body>
     </html>

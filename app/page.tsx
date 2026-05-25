@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FilterBar, type CategoryFilter } from "@/components/FilterBar";
 import { FeedList } from "@/components/FeedList";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { AppHeader } from "@/components/AppHeader";
 import type { Post } from "@/lib/types";
 
 const PAGE_SIZE = 20;
@@ -86,20 +86,11 @@ export default function HomePage() {
 
   return (
     <div className="max-w-lg mx-auto min-h-screen bg-page">
-      <header className="sticky top-0 z-20 bg-navbar border-b border-theme px-4 py-3 flex items-center justify-between">
-        <h1 className="text-lg font-bold text-primary">Pulse</h1>
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <button
-            type="button"
-            onClick={handleRefresh}
-            disabled={refreshing || loading}
-            className="text-sm text-link font-medium disabled:opacity-50 hover:opacity-80 transition-opacity"
-          >
-            {refreshing ? "…" : "Refresh"}
-          </button>
-        </div>
-      </header>
+      <AppHeader
+        onRefresh={handleRefresh}
+        refreshing={refreshing}
+        loading={loading}
+      />
 
       <main className="px-4 pt-3 pb-8">
         <FilterBar
