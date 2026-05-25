@@ -1,5 +1,6 @@
 import { fetchFeed } from "@/lib/rss";
 import { matchesBlogTopics } from "@/lib/blog-filter";
+import { blogSummaryFromSnippet } from "@/lib/summary";
 import { supabase } from "@/lib/supabase";
 import { NextResponse } from "next/server";
 
@@ -29,7 +30,12 @@ export async function POST(req: Request) {
         .filter((item) => matchesBlogTopics(item.title, item.content))
         .slice(0, 10)
         .map((item) => ({
-          ...item,
+          title: item.title,
+          content: item.content,
+          summary: blogSummaryFromSnippet(item.contentSnippet) || null,
+          source_url: item.source_url,
+          source_name: item.source_name,
+          fetched_at: item.fetched_at,
           category: "B",
           topic,
         }));

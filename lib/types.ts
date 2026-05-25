@@ -5,8 +5,21 @@ export interface Post {
   category: PostCategory;
   title: string;
   content: string;
+  summary: string | null;
   source_url: string | null;
   source_name: string | null;
   topic: string | null;
   fetched_at: string;
+}
+
+export interface PushSubscriptionRow {
+  id: string;
+  subscription: PushSubscriptionJSON;
+  created_at: string;
+}
+
+export interface PushSubscriptionJSON {
+  endpoint: string;
+  keys: { p256dh: string; auth: string };
+  expirationTime?: number | null;
 }

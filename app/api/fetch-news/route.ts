@@ -1,4 +1,4 @@
-import { fetchNewsDigest } from "@/lib/gemini";
+import { fetchNewsDigest, generateOneLineSummary } from "@/lib/gemini";
 import { supabase } from "@/lib/supabase";
 import { NextResponse } from "next/server";
 
@@ -25,10 +25,12 @@ export async function POST(req: Request) {
 
   for (const { title, topic, prompt } of PROMPTS) {
     const content = await fetchNewsDigest(prompt);
+    const summary = await generateOneLineSummary(content);
     const { error } = await supabase.from("posts").insert({
       category: "A",
       title,
       content,
+      summary: summary || null,
       topic,
       source_name: "Gemini + Google Search",
     });

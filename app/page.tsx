@@ -4,9 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FilterBar, type CategoryFilter } from "@/components/FilterBar";
 import { FeedList } from "@/components/FeedList";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { registerPushSubscription } from "@/lib/push-client";
 import type { Post } from "@/lib/types";
 
 const PAGE_SIZE = 20;
+const PUSH_ATTEMPTED_KEY = "pulse-push-attempted";
 const TOPICS = [
   "India",
   "Global",
@@ -27,6 +30,12 @@ export default function HomePage() {
   const [refreshing, setRefreshing] = useState(false);
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem(PUSH_ATTEMPTED_KEY)) return;
+    localStorage.setItem(PUSH_ATTEMPTED_KEY, "1");
+    registerPushSubscription().catch(() => {});
+  }, []);
 
   const buildUrl = useCallback(
     (pageOffset: number) => {
@@ -84,17 +93,20 @@ export default function HomePage() {
   };
 
   return (
-    <div className="max-w-lg mx-auto min-h-screen bg-zinc-950">
-      <header className="sticky top-0 z-20 bg-zinc-950 border-b border-zinc-800 px-4 py-3 flex items-center justify-between">
-        <h1 className="text-lg font-bold text-white">Pulse</h1>
-        <button
-          type="button"
-          onClick={handleRefresh}
-          disabled={refreshing || loading}
-          className="text-sm text-indigo-400 font-medium disabled:opacity-50 hover:text-indigo-300 transition-colors"
-        >
-          {refreshing ? "…" : "Refresh"}
-        </button>
+    <div className="max-w-lg mx-auto min-h-screen bg-page">
+      <header className="sticky top-0 z-20 bg-navbar border-b border-theme px-4 py-3 flex items-center justify-between">
+        <h1 className="text-lg font-bold text-primary">Pulse</h1>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={handleRefresh}
+            disabled={refreshing || loading}
+            className="text-sm text-link font-medium disabled:opacity-50 hover:opacity-80 transition-opacity"
+          >
+            {refreshing ? "…" : "Refresh"}
+          </button>
+        </div>
       </header>
 
       <main className="px-4 pt-3 pb-8">

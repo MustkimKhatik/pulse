@@ -9,12 +9,25 @@ import { prepareBlogMarkdown } from "@/lib/blog-content";
 
 const blogComponents: Components = {
   pre: ({ children }) => <div className="not-prose my-0">{children}</div>,
+  p: ({ children }) => (
+    <p className="text-primary leading-relaxed mb-4 whitespace-pre-wrap">{children}</p>
+  ),
+  h1: ({ children }) => (
+    <h1 className="text-primary font-bold text-xl mb-3 mt-6">{children}</h1>
+  ),
+  h2: ({ children }) => (
+    <h2 className="text-primary font-semibold text-lg mb-2 mt-5">{children}</h2>
+  ),
+  h3: ({ children }) => (
+    <h3 className="text-primary font-semibold text-base mb-2 mt-4">{children}</h3>
+  ),
+  li: ({ children }) => <li className="text-primary mb-1">{children}</li>,
   a: ({ href, children }) => (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-indigo-400 hover:text-indigo-300 underline underline-offset-2"
+      className="text-link hover:opacity-80 underline underline-offset-2"
     >
       {children}
     </a>
@@ -26,7 +39,8 @@ const blogComponents: Components = {
     if (!className && !code.includes("\n")) {
       return (
         <code
-          className="rounded bg-zinc-800 px-1.5 py-0.5 text-emerald-300 text-[0.85em] font-mono"
+          className="rounded px-1.5 py-0.5 text-[0.85em] font-mono text-[var(--accent-b)]"
+          style={{ backgroundColor: "var(--code-bg)" }}
           {...props}
         >
           {children}
@@ -43,7 +57,7 @@ const blogComponents: Components = {
           margin: "1rem 0",
           borderRadius: "0.5rem",
           fontSize: "0.8rem",
-          border: "1px solid rgb(39 39 42)",
+          border: "1px solid var(--border)",
         }}
       >
         {code}
@@ -61,9 +75,7 @@ export function BlogMarkdown({ content, className = "" }: BlogMarkdownProps) {
   const markdown = prepareBlogMarkdown(content);
 
   return (
-    <article
-      className={`prose prose-invert prose-zinc max-w-none prose-p:text-zinc-300 prose-p:leading-relaxed prose-headings:text-zinc-100 prose-li:text-zinc-300 prose-pre:p-0 prose-pre:bg-transparent ${className}`}
-    >
+    <article className={`prose prose-zinc max-w-none prose-p:whitespace-pre-wrap ${className}`}>
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={blogComponents}>
         {markdown}
       </ReactMarkdown>

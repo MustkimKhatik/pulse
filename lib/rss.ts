@@ -19,6 +19,7 @@ const parser = new Parser({
 export interface RssItem {
   title: string;
   content: string;
+  contentSnippet: string;
   source_url: string;
   source_name: string;
   fetched_at: string;
@@ -36,11 +37,17 @@ function itemBody(item: RssItemRaw): string {
 
 export async function fetchFeed(url: string): Promise<RssItem[]> {
   const feed = await parser.parseURL(url);
-  return feed.items.map((item) => ({
-    title: item.title ?? "",
-    content: itemBody(item as RssItemRaw),
-    source_url: item.link ?? "",
-    source_name: feed.title ?? "",
-    fetched_at: item.pubDate ?? new Date().toISOString(),
-  }));
+  return feed.items.map((item) => {
+    const raw = item as RssItemRaw;
+    const snippet =
+      raw.contentSnippet ?? raw.summary ?? itemBody(raw).slice(0, 500);
+    return {
+      title: item.title ?? "",
+      content: itemBody(raw),
+      contentSnippet: snippet,
+      source_url: item.link ?? "",
+      source_name: feed.title ?? "",
+      fetched_at: item.pubDate ?? new Date().toISOString(),
+    };
+  });
 }

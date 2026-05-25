@@ -11,6 +11,7 @@ interface FeedCardProps {
 
 export function FeedCard({ post, onClick }: FeedCardProps) {
   const isDigest = post.category === "A";
+  const subtitle = post.summary?.trim() || contentPreview(post.content, 160);
 
   return (
     <div
@@ -20,35 +21,36 @@ export function FeedCard({ post, onClick }: FeedCardProps) {
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") onClick();
       }}
-      className={`bg-zinc-900 border border-zinc-800 rounded-lg p-4 mb-3 cursor-pointer transition-colors hover:bg-zinc-800 border-l-4 ${
-        isDigest ? "border-l-indigo-500" : "border-l-emerald-500"
-      }`}
+      className="bg-card border border-theme rounded-lg p-4 mb-3 cursor-pointer transition-colors bg-card-hover border-l-4"
+      style={{
+        borderLeftColor: isDigest ? "var(--accent-a)" : "var(--accent-b)",
+      }}
     >
       <div className="flex items-center gap-2 mb-2">
         <span
           className={`text-xs font-medium px-2 py-0.5 rounded-lg ${
             isDigest
-              ? "text-indigo-400 bg-indigo-500/10"
-              : "text-emerald-400 bg-emerald-500/10"
+              ? "text-[var(--accent-a)] bg-[color-mix(in_srgb,var(--accent-a)_12%,transparent)]"
+              : "text-[var(--accent-b)] bg-[color-mix(in_srgb,var(--accent-b)_12%,transparent)]"
           }`}
         >
           {isDigest ? "Daily Digest" : "Blog"}
         </span>
         {post.topic && (
-          <span className="text-xs text-zinc-500">{post.topic}</span>
+          <span className="text-xs text-secondary">{post.topic}</span>
         )}
       </div>
 
-      <h2 className="font-semibold text-white text-sm leading-snug mb-1.5">
+      <h2 className="font-semibold text-primary text-sm leading-snug mb-1">
         {post.title}
       </h2>
 
-      <p className="text-sm text-zinc-400 line-clamp-3 leading-relaxed">
-        {contentPreview(post.content)}
+      <p className="text-sm text-secondary line-clamp-2 leading-relaxed mb-1">
+        {subtitle}
       </p>
 
-      <div className="flex items-center justify-between mt-3">
-        <span className="text-zinc-500 text-xs">
+      <div className="flex items-center justify-between mt-2">
+        <span className="text-secondary text-xs">
           {post.source_name ?? "Unknown"} ·{" "}
           {formatDistanceToNow(new Date(post.fetched_at), { addSuffix: true })}
         </span>
@@ -58,7 +60,7 @@ export function FeedCard({ post, onClick }: FeedCardProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="text-indigo-400 text-xs hover:text-indigo-300 transition-colors"
+            className="text-link text-xs hover:opacity-80 transition-opacity"
           >
             Source ↗
           </a>

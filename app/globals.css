@@ -2,6 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-page: #faf7f2;
+  --bg-card: #ffffff;
+  --border: #ede8df;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b6560;
+  --chip-inactive-bg: #f0ebe3;
+  --chip-inactive-text: #6b6560;
+  --chip-active-bg: #6366f1;
+  --chip-active-text: #ffffff;
+  --accent-a: #6366f1;
+  --accent-b: #10b981;
+  --link: #6366f1;
+  --card-hover: #f5f2ed;
+  --digest-bullet-bg: #f5f2ed;
+  --markdown-muted: #6b6560;
+  --code-bg: #f0ebe3;
+  --navbar-bg: #faf7f2;
+}
+
+[data-theme="dark"] {
+  --bg-page: #18181b;
+  --bg-card: #27272a;
+  --border: #3f3f46;
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --chip-inactive-bg: #3f3f46;
+  --chip-inactive-text: #a1a1aa;
+  --chip-active-bg: #6366f1;
+  --chip-active-text: #ffffff;
+  --accent-a: #6366f1;
+  --accent-b: #10b981;
+  --link: #6366f1;
+  --card-hover: #3f3f46;
+  --digest-bullet-bg: #27272a;
+  --markdown-muted: #a1a1aa;
+  --code-bg: #3f3f46;
+  --navbar-bg: #18181b;
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+  }
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
@@ -9,6 +56,43 @@
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  .bg-page {
+    background-color: var(--bg-page);
+  }
+  .bg-card {
+    background-color: var(--bg-card);
+  }
+  .bg-navbar {
+    background-color: var(--navbar-bg);
+  }
+  .bg-chip-inactive {
+    background-color: var(--chip-inactive-bg);
+  }
+  .bg-chip-active {
+    background-color: var(--chip-active-bg);
+  }
+  .bg-card-hover:hover {
+    background-color: var(--card-hover);
+  }
+  .text-primary {
+    color: var(--text-primary);
+  }
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+  .text-link {
+    color: var(--link);
+  }
+  .border-theme {
+    border-color: var(--border);
+  }
+  .border-accent-a {
+    border-color: var(--accent-a);
+  }
+  .border-accent-b {
+    border-color: var(--accent-b);
   }
 }
 

@@ -29,10 +29,10 @@ function Chip({
     <button
       type="button"
       onClick={onClick}
-      className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+      className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors border ${
         active
-          ? "bg-indigo-600 text-white border border-indigo-600"
-          : "bg-zinc-800 text-zinc-300 border border-zinc-700 hover:bg-zinc-700"
+          ? "bg-chip-active text-white border-[var(--chip-active-bg)]"
+          : "bg-chip-inactive text-[var(--chip-inactive-text)] border-theme hover:opacity-90"
       }`}
     >
       {label}
@@ -48,7 +48,7 @@ export function FilterBar({
   onTopicChange,
 }: FilterBarProps) {
   return (
-    <div className="sticky top-[53px] z-10 bg-zinc-950 pb-2 space-y-2">
+    <div className="sticky top-[53px] z-10 bg-page pb-2 space-y-2">
       <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
         {CATEGORIES.map((c) => (
           <Chip

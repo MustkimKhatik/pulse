@@ -20,7 +20,7 @@ export function FeedList({
 }: FeedListProps) {
   if (!loading && posts.length === 0) {
     return (
-      <div className="text-center py-16 text-zinc-500 text-sm">
+      <div className="text-center py-16 text-secondary text-sm">
         <p className="mb-2">No posts yet.</p>
         <p>Run the daily fetch workflow or trigger it manually from GitHub Actions.</p>
       </div>
@@ -38,14 +38,14 @@ export function FeedList({
       ))}
 
       {loading && (
-        <p className="text-center text-sm text-zinc-500 py-4">Loading…</p>
+        <p className="text-center text-sm text-secondary py-4">Loading…</p>
       )}
 
       {hasMore && !loading && (
         <button
           type="button"
           onClick={onLoadMore}
-          className="w-full py-3 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
+          className="w-full py-3 text-sm font-medium text-link hover:opacity-80 transition-opacity"
         >
           Load more
         </button>
