@@ -28,7 +28,7 @@ export default function PostPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-gray-400 text-sm">
+      <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-zinc-500 text-sm">
         Loading…
       </div>
     );
@@ -36,12 +36,12 @@ export default function PostPage() {
 
   if (!post) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-3 text-gray-400 text-sm px-4">
+      <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center gap-3 text-zinc-500 text-sm px-4">
         <p>Post not found.</p>
         <button
           type="button"
           onClick={() => router.push("/")}
-          className="text-blue-600 font-medium"
+          className="text-zinc-400 hover:text-zinc-200 transition-colors"
         >
           ← Back to feed
         </button>

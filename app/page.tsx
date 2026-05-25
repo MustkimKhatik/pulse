@@ -7,7 +7,16 @@ import { FeedList } from "@/components/FeedList";
 import type { Post } from "@/lib/types";
 
 const PAGE_SIZE = 20;
-const TOPICS = ["India", "Global", "AI", "Engineering", "Startups", "General"];
+const TOPICS = [
+  "India",
+  "Global",
+  "AI",
+  "Golang",
+  "Kafka",
+  "Redis",
+  "Engineering",
+  "General",
+];
 
 export default function HomePage() {
   const router = useRouter();
@@ -75,16 +84,14 @@ export default function HomePage() {
   };
 
   return (
-    <div className="max-w-lg mx-auto min-h-screen bg-gray-50">
-      <header className="sticky top-0 z-20 bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between">
-        <h1 className="text-lg font-bold text-gray-900 flex items-center gap-1.5">
-          <span className="text-red-500">●</span> Pulse
-        </h1>
+    <div className="max-w-lg mx-auto min-h-screen bg-zinc-950">
+      <header className="sticky top-0 z-20 bg-zinc-950 border-b border-zinc-800 px-4 py-3 flex items-center justify-between">
+        <h1 className="text-lg font-bold text-white">Pulse</h1>
         <button
           type="button"
           onClick={handleRefresh}
           disabled={refreshing || loading}
-          className="text-sm text-blue-600 font-medium disabled:opacity-50"
+          className="text-sm text-indigo-400 font-medium disabled:opacity-50 hover:text-indigo-300 transition-colors"
         >
           {refreshing ? "…" : "Refresh"}
         </button>
