@@ -1,0 +1,55 @@
+"use client";
+
+import { FeedCard } from "./FeedCard";
+import type { Post } from "@/lib/types";
+
+interface FeedListProps {
+  posts: Post[];
+  onPostClick: (post: Post) => void;
+  loading: boolean;
+  hasMore: boolean;
+  onLoadMore: () => void;
+}
+
+export function FeedList({
+  posts,
+  onPostClick,
+  loading,
+  hasMore,
+  onLoadMore,
+}: FeedListProps) {
+  if (!loading && posts.length === 0) {
+    return (
+      <div className="text-center py-16 text-gray-400 text-sm">
+        <p className="mb-2">No posts yet.</p>
+        <p>Run the daily fetch workflow or trigger it manually from GitHub Actions.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      {posts.map((post) => (
+        <FeedCard
+          key={post.id}
+          post={post}
+          onClick={() => onPostClick(post)}
+        />
+      ))}
+
+      {loading && (
+        <p className="text-center text-sm text-gray-400 py-4">Loading…</p>
+      )}
+
+      {hasMore && !loading && (
+        <button
+          type="button"
+          onClick={onLoadMore}
+          className="w-full py-3 text-sm font-medium text-blue-600 active:text-blue-800"
+        >
+          Load more
+        </button>
+      )}
+    </div>
+  );
+}
