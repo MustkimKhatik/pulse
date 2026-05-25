@@ -6,7 +6,7 @@ Personal, read-only news aggregator. Mobile-first feed with AI daily digests and
 
 - Next.js 14 (App Router) + Tailwind CSS
 - Supabase (PostgreSQL)
-- Google Gemini 1.5 Flash (with Google Search grounding)
+- Google Gemini 2.5 Flash (with Google Search grounding)
 - RSS feeds via `rss-parser`
 - GitHub Actions cron (7:00 AM IST)
 - Vercel Hobby deployment
