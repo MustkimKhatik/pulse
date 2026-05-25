@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "generate-vapid": "web-push generate-vapid-keys"
+    "lint": "next lint"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
@@ -19,8 +18,7 @@
     "react-markdown": "^9.0.3",
     "react-syntax-highlighter": "^15.6.1",
     "remark-gfm": "^4.0.1",
-    "rss-parser": "^3.13.0",
-    "web-push": "^3.6.7"
+    "rss-parser": "^3.13.0"
   },
   "devDependencies": {
     "@types/node": "^20.17.24",

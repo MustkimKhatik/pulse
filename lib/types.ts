@@ -11,15 +11,3 @@ export interface Post {
   topic: string | null;
   fetched_at: string;
 }
-
-export interface PushSubscriptionRow {
-  id: string;
-  subscription: PushSubscriptionJSON;
-  created_at: string;
-}
-
-export interface PushSubscriptionJSON {
-  endpoint: string;
-  keys: { p256dh: string; auth: string };
-  expirationTime?: number | null;
-}

@@ -5,11 +5,9 @@ import { useRouter } from "next/navigation";
 import { FilterBar, type CategoryFilter } from "@/components/FilterBar";
 import { FeedList } from "@/components/FeedList";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { registerPushSubscription } from "@/lib/push-client";
 import type { Post } from "@/lib/types";
 
 const PAGE_SIZE = 20;
-const PUSH_ATTEMPTED_KEY = "pulse-push-attempted";
 const TOPICS = [
   "India",
   "Global",
@@ -30,12 +28,6 @@ export default function HomePage() {
   const [refreshing, setRefreshing] = useState(false);
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem(PUSH_ATTEMPTED_KEY)) return;
-    localStorage.setItem(PUSH_ATTEMPTED_KEY, "1");
-    registerPushSubscription().catch(() => {});
-  }, []);
 
   const buildUrl = useCallback(
     (pageOffset: number) => {

@@ -8,8 +8,7 @@ Personal, read-only news aggregator. Mobile-first feed with AI daily digests and
 - Supabase (PostgreSQL)
 - Google Gemini 2.5 Flash (with Google Search grounding)
 - RSS feeds via `rss-parser`
-- GitHub Actions cron (7:00 AM IST fetch, 11:00 AM IST push)
-- Web Push notifications
+- GitHub Actions cron (7:00 AM IST)
 - Vercel Hobby deployment
 
 ## Setup
@@ -24,7 +23,7 @@ npm install
 ### 2. Supabase
 
 1. Create a project at [supabase.com](https://supabase.com).
-2. Run `supabase/migrations/001_init.sql` then `002_summary_and_push.sql` in the SQL editor.
+2. Run `supabase/migrations/001_init.sql` then `002_summary_and_push.sql` (adds `summary` column) in the SQL editor.
 3. Copy your project URL, anon key, and service role key.
 
 ### 3. Environment variables
@@ -38,18 +37,6 @@ Copy `.env.example` to `.env.local` and fill in:
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase → Settings → API |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Settings → API (keep secret) |
 | `CRON_SECRET` | Any random string you choose |
-| `NEXT_PUBLIC_VAPID_PUBLIC_KEY` | From `npm run generate-vapid` (public key) |
-| `VAPID_PUBLIC_KEY` | Same as above |
-| `VAPID_PRIVATE_KEY` | From `npm run generate-vapid` (private key) |
-| `VAPID_EMAIL` | e.g. `mailto:you@example.com` |
-
-Generate VAPID keys once:
-
-```bash
-npm run generate-vapid
-```
-
-Add the same public key to Vercel as both `NEXT_PUBLIC_VAPID_PUBLIC_KEY` and `VAPID_PUBLIC_KEY`.
 
 ### 4. Run locally
 
@@ -85,8 +72,6 @@ In your GitHub repo → **Settings → Secrets and variables → Actions**, add:
 | `VERCEL_APP_URL` | `https://your-app.vercel.app` (no trailing slash) |
 
 Manual trigger: **Actions → Daily Feed Fetch → Run workflow**.
-
-Cron schedule: 7:00 AM IST feed fetch (`30 1 * * *` UTC), 11:00 AM IST push notification (`30 5 * * *` UTC).
 
 ## Add to home screen
 
